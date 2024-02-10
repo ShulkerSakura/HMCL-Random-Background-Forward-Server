@@ -105,9 +105,11 @@ class serverHandler implements HttpHandler{
         //Set requset url for imageService
         imageService myImageService = new imageService(request);
         //Get return image url
-        backImages image = myImageService.getImageById(rID.genRandomId(myImageService.getMaxId()));
+        //Gen random ID
+        int id = rID.genRandomId(myImageService.getMaxId());
+        backImages image = myImageService.getImageById(id);
         String imageUrl = image.getUrl();
-        System.out.println(color.color("green")+"Return Image URL: "+color.color("yellow")+imageUrl+color.color("reset"));
+        System.out.println(color.color("green")+"Return Image URL: "+color.color("yellow")+imageUrl+color.color("reset")+" ID: "+id);
         String fileExtension = imageUrl.substring(imageUrl.lastIndexOf(".") + 1);
         String contentType;
         switch (fileExtension.toLowerCase()) {

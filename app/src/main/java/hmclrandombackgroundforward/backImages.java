@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.Collections;
+import java.util.Comparator;
 
 
 public class backImages {
@@ -79,7 +80,14 @@ class imageService{
     public int getMaxId(){
         int maxId;
         Set<String> keys = serverData.getImageList().keySet();
-        String maxIds = Collections.max(keys);
+	    //System.out.println("String<> MaxID"+keys);
+        Comparator<String> cmp = new Comparator<String>(){
+            @Override
+            public int compare(String o1,String o2){
+                return Integer.valueOf(o1).compareTo(Integer.valueOf(o2));
+            }
+        };
+        String maxIds = Collections.max(keys,cmp);
         maxId = Integer.parseInt(maxIds);
         return maxId;
     }
@@ -91,6 +99,7 @@ class imageService{
 
 class randomId{
     public int genRandomId(int maxId){
+        //System.out.println("MaxID-TEST: "+maxId);
         Random random = new Random();
         int randomId = random.nextInt(maxId) + 1;
         return randomId;
